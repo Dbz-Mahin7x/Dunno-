@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mahin's World ✨</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      background: black;
+      color: white;
+      transition: background 2s;
+    }
+
+    canvas#stars, canvas#particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -2;
+    }
+
+    .content {
+      position: relative;
+      text-align: center;
+      top: 12%;
+      animation: fadeIn 2s ease;
+    }
+
+    h1 {
+      font-size: 50px;
+      text-shadow: 0 0 20px #00ffe0, 0 0 30px #ff00ff;
+      animation: glow 2s infinite alternate;
+      cursor: pointer;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #00ffe0; }
+      to { text-shadow: 0 0 30px #ff00ff; }
+    }
+
+    .profile {
+      margin: 30px auto;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 5px solid #fff;
+      box-shadow: 0 0 20px #00ffe0, 0 0 40px #ff00ff;
+      animation: float 3s ease-in-out infinite;
+      transition: transform 1s;
+    }
+
+    .profile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1s;
+    }
+
+    .profile:hover {
+      transform: rotateY(360deg) scale(1.1);
+      box-shadow: 0 0 40px #00ffe0, 0 0 80px #ff00ff;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .typewriter {
+      font-size: 22px;
+      margin-top: 15px;
+      height: 30px;
+      overflow: hidden;
+      border-right: 2px solid #00ffe0;
+      white-space: nowrap;
+      margin: 0 auto;
+      letter-spacing: 2px;
+      animation: typing 4s steps(30, end) infinite alternate,
+                 blink 0.7s infinite;
+      width: 0ch;
+    }
+
+    @keyframes typing {
+      from { width: 0ch; }
+      to { width: 30ch; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    .info {
+      font-size: 20px;
+      margin-top: 20px;
+      background: rgba(255,255,255,0.1);
+      display: inline-block;
+      padding: 20px 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px #00ffe0, 0 0 40px #ff00ff;
+    }
+
+    .social {
+      margin-top: 30px;
+    }
+
+    .social a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 25px;
+      transition: 0.3s;
+      padding: 10px 15px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .social a:hover {
+      color: #00ffe0;
+      background: rgba(255,255,255,0.2);
+      text-shadow: 0 0 15px #ff00ff;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    .buttons button {
+      background: linear-gradient(45deg, #ff00ff, #00ffe0);
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      font-size: 18px;
+      margin: 10px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .buttons button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #ff00ff;
+    }
+
+    .counter {
+      margin-top: 20px;
+      font-size: 18px;
+      opacity: 0.7;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      padding: 20px;
+      background: rgba(255,255,255,0.05);
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .heart {
+      position: fixed;
+      font-size: 20px;
+      color: red;
+      animation: fall 3s linear forwards;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+<canvas id="particles"></canvas>
+
+<div class="content">
+  <div class="profile">
+    <img src="https://files.catbox.moe/l7gvfz.jpg" alt="Mahin">
+  </div>
+  <h1 id="name">Hey, I'm Mahin 👑</h1>
+  <div class="typewriter">A Student | Coder | Future Millionaire 💻🔥</div>
+  <div class="info">
+    💻 Student & Coder <br>
+    🌏 Bangladesh <br>
+    🔥 Age: 14 <br>
+    ❤️ Loves Coding & Making $$$ <br>
+    📌 Click my FB below to connect!
+  </div>
+  <div class="social">
+    <a href="https://www.facebook.com/RentaroAijo.7x" target="_blank">Facebook 💙</a>
+  </div>
+  <div class="buttons">
+    <button onclick="alert('Downloading Contact...')">📥 Download vCard</button>
+    <button onclick="toggleMusic()">🎵 Music</button>
+  </div>
+  <div class="counter">👀 Visitors: <span id="visits">0</span></div>
+</div>
+
+<footer>© 2025 Mahin | Built with 💖 & Code</footer>
+
+<audio id="bgmusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/10/19/audio_4a9b5f7e1b.mp3?filename=chill-ambient-ambient-music-12441.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  // 🌌 Stars Background
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    stars = [];
+    for (let i = 0; i < 150; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 2,
+        speed: Math.random() * 0.5 + 0.2
+      });
+    }
+  }
+
+  function animateStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'white';
+    stars.forEach(star => {
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+      ctx.fill();
+      star.y += star.speed;
+      if (star.y > canvas.height) star.y = 0;
+    });
+    requestAnimationFrame(animateStars);
+  }
+
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+  animateStars();
+
+  // 💖 Heart Rain
+  document.getElementById('name').addEventListener('click', () => {
+    for (let i = 0; i < 10; i++) {
+      let heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerText = '❤️';
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.top = '-20px';
+      heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 3000);
+    }
+  });
+
+  // Fake Visitors
+  document.getElementById('visits').innerText = Math.floor(Math.random() * 1000) + 50;
+
+  // 🎵 Music Toggle
+  const music = document.getElementById('bgmusic');
+  function toggleMusic() {
+    if (music.paused) music.play(); else music.pause();
+  }
+
+  // 🌈 Mouse Glow Trail
+  const particleCanvas = document.getElementById('particles');
+  const pctx = particleCanvas.getContext('2d');
+  particleCanvas.width = window.innerWidth;
+  particleCanvas.height = window.innerHeight;
+  let particles = [];
+
+  document.addEventListener('mousemove', e => {
+    particles.push({x: e.clientX, y: e.clientY, alpha: 1});
+  });
+
+  function animateParticles() {
+    pctx.clearRect(0,0,particleCanvas.width,particleCanvas.height);
+    particles.forEach((p,i)=>{
+      pctx.fillStyle = `rgba(0,255,255,${p.alpha})`;
+      pctx.beginPath();
+      pctx.arc(p.x,p.y,5,0,Math.PI*2);
+      pctx.fill();
+      p.alpha -= 0.02;
+      if(p.alpha<=0) particles.splice(i,1);
+    });
+    requestAnimationFrame(animateParticles);
+  }
+  animateParticles();
+
+  // 🌗 Day/Night background
+  setInterval(()=>{
+    document.body.style.background = 
+      document.body.style.background === "black" 
+      ? "linear-gradient(to bottom, #001f3f, #000)" 
+      : "black";
+  },10000);
+</script>
+
+</body>
+</html>
