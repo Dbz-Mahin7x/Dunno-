@@ -3,20 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mahin's World ✨</title>
+  <title>Mahin's Ultimate World ✨💖</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&family=Parisienne&display=swap');
+
+    :root {
+      --primary: #ff69b4;
+      --secondary: #ff1493;
+      --accent: #ffb6c1;
+      --text: white;
+      --bg: linear-gradient(135deg, #0f0524 0%, #1a0933 100%);
+      --dark-bg: #121212;
+    }
 
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
       overflow-x: hidden;
-      background: black;
-      color: white;
-      transition: background 2s;
+      background: var(--bg);
+      color: var(--text);
+      transition: all 0.5s;
+      min-height: 100vh;
     }
 
-    canvas#stars, canvas#particles {
+    canvas#stars, canvas#particles, canvas#fireworks {
       position: fixed;
       top: 0;
       left: 0;
@@ -26,68 +36,96 @@
     .content {
       position: relative;
       text-align: center;
-      top: 12%;
+      padding: 20px;
+      top: 8%;
       animation: fadeIn 2s ease;
+      padding-bottom: 150px;
     }
 
     h1 {
-      font-size: 50px;
-      text-shadow: 0 0 20px #00ffe0, 0 0 30px #ff00ff;
+      font-size: 4rem;
+      text-shadow: 0 0 20px var(--primary), 0 0 30px var(--secondary);
       animation: glow 2s infinite alternate;
       cursor: pointer;
+      margin-bottom: 10px;
+      font-weight: 700;
+      font-family: 'Parisienne', cursive;
     }
 
     @keyframes glow {
-      from { text-shadow: 0 0 10px #00ffe0; }
-      to { text-shadow: 0 0 30px #ff00ff; }
+      0% { text-shadow: 0 0 10px var(--primary); }
+      50% { text-shadow: 0 0 30px var(--secondary), 0 0 50px var(--primary); }
+      100% { text-shadow: 0 0 20px var(--secondary), 0 0 40px var(--primary), 0 0 60px var(--primary); }
     }
 
     .profile {
       margin: 30px auto;
-      width: 200px;
-      height: 200px;
+      width: 240px;
+      height: 240px;
       border-radius: 50%;
       overflow: hidden;
       border: 5px solid #fff;
-      box-shadow: 0 0 20px #00ffe0, 0 0 40px #ff00ff;
+      box-shadow: 0 0 30px var(--primary), 0 0 60px var(--secondary);
       animation: float 3s ease-in-out infinite;
-      transition: transform 1s;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+    }
+
+    .profile::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), var(--secondary), var(--primary));
+      z-index: -1;
+      opacity: 0.7;
+      animation: rotate 4s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     .profile img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 1s;
+      transition: transform 0.5s;
     }
 
     .profile:hover {
       transform: rotateY(360deg) scale(1.1);
-      box-shadow: 0 0 40px #00ffe0, 0 0 80px #ff00ff;
+      box-shadow: 0 0 50px var(--primary), 0 0 100px var(--secondary);
     }
 
     @keyframes float {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
+      50% { transform: translateY(-20px); }
     }
 
     .typewriter {
-      font-size: 22px;
+      font-size: 2rem;
       margin-top: 15px;
-      height: 30px;
+      height: 40px;
       overflow: hidden;
-      border-right: 2px solid #00ffe0;
+      border-right: 3px solid var(--primary);
       white-space: nowrap;
       margin: 0 auto;
       letter-spacing: 2px;
       animation: typing 4s steps(30, end) infinite alternate,
                  blink 0.7s infinite;
       width: 0ch;
+      font-weight: 600;
+      color: var(--accent);
     }
 
     @keyframes typing {
       from { width: 0ch; }
-      to { width: 30ch; }
+      to { width: 32ch; }
     }
 
     @keyframes blink {
@@ -95,90 +133,789 @@
     }
 
     .info {
-      font-size: 20px;
-      margin-top: 20px;
+      font-size: 1.3rem;
+      margin: 30px auto;
       background: rgba(255,255,255,0.1);
       display: inline-block;
-      padding: 20px 40px;
-      border-radius: 20px;
+      padding: 25px 50px;
+      border-radius: 30px;
       backdrop-filter: blur(10px);
-      box-shadow: 0 0 20px #00ffe0, 0 0 40px #ff00ff;
+      box-shadow: 0 0 30px rgba(255,105,180,0.3);
+      max-width: 500px;
+      border: 1px solid rgba(255,255,255,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      z-index: -1;
+      background: linear-gradient(45deg, var(--primary), var(--secondary), var(--primary));
+      background-size: 200% 200%;
+      animation: gradientBG 5s ease infinite;
+      border-radius: 30px;
+      opacity: 0.3;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .social {
       margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
     }
 
     .social a {
-      color: white;
+      color: var(--text);
       text-decoration: none;
-      margin: 0 15px;
-      font-size: 25px;
-      transition: 0.3s;
-      padding: 10px 15px;
-      border-radius: 10px;
+      font-size: 1.3rem;
+      transition: all 0.3s ease;
+      padding: 12px 20px;
+      border-radius: 50px;
       background: rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      border: 1px solid rgba(255,255,255,0.2);
     }
 
     .social a:hover {
-      color: #00ffe0;
-      background: rgba(255,255,255,0.2);
-      text-shadow: 0 0 15px #ff00ff;
+      color: var(--primary);
+      background: rgba(255,105,180,0.2);
+      text-shadow: 0 0 15px var(--secondary);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(255,105,180,0.3);
     }
 
     .buttons {
-      margin-top: 20px;
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
     }
 
     .buttons button {
-      background: linear-gradient(45deg, #ff00ff, #00ffe0);
+      background: linear-gradient(45deg, var(--secondary), var(--primary));
       border: none;
       color: white;
-      padding: 12px 25px;
-      font-size: 18px;
-      margin: 10px;
-      border-radius: 25px;
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      border-radius: 50px;
       cursor: pointer;
-      transition: 0.3s;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      font-weight: 600;
+      box-shadow: 0 5px 15px rgba(255,105,180,0.4);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .buttons button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
     }
 
     .buttons button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 20px #ff00ff;
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 30px rgba(255,105,180,0.6);
+    }
+
+    .buttons button:hover::before {
+      left: 100%;
     }
 
     .counter {
-      margin-top: 20px;
-      font-size: 18px;
-      opacity: 0.7;
+      margin-top: 30px;
+      font-size: 1rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .counter span {
+      font-weight: 600;
+      color: var(--text);
     }
 
     footer {
-      position: absolute;
+      position: fixed;
       bottom: 0;
       width: 100%;
       text-align: center;
-      padding: 20px;
+      padding: 15px;
       background: rgba(255,255,255,0.05);
-      font-size: 14px;
-      color: #ccc;
+      font-size: 0.9rem;
+      color: var(--accent);
+      backdrop-filter: blur(5px);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      z-index: 10;
     }
 
     .heart {
       position: fixed;
       font-size: 20px;
-      color: red;
-      animation: fall 3s linear forwards;
+      color: var(--secondary);
+      animation: fall linear forwards;
+      z-index: -1;
+      pointer-events: none;
     }
 
     @keyframes fall {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(100vh); opacity: 0; }
+      0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .music-controls {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .music-btn {
+      background: rgba(255,105,180,0.3);
+      border: none;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .music-btn:hover {
+      background: rgba(255,105,180,0.5);
+      transform: scale(1.1);
+    }
+
+    .song-title {
+      background: rgba(0,0,0,0.5);
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+      max-width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      transition: max-width 0.5s, opacity 0.3s;
+    }
+
+    .music-controls:hover .song-title {
+      opacity: 1;
+      max-width: 200px;
+    }
+
+    .love-message {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,105,180,0.3);
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.5s;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.2);
+      z-index: 100;
+    }
+
+    .love-message.show {
+      opacity: 1;
+    }
+
+    .floating-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .floating-heart {
+      position: absolute;
+      font-size: 20px;
+      color: var(--primary);
+      animation: float-up 15s linear infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes float-up {
+      0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(-20vh) translateX(20vw) rotate(360deg); opacity: 0; }
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(255,255,255,0.1);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      z-index: 100;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255,255,255,0.2);
+      transform: scale(1.1);
+    }
+
+    .dark-mode {
+      --bg: var(--dark-bg);
+      --text: #f0f0f0;
+    }
+
+    .photo-frame {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 150px;
+      height: 150px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 3px solid var(--primary);
+      box-shadow: 0 0 20px rgba(255,105,180,0.5);
+      transform: rotate(5deg);
+      transition: all 0.5s;
+      z-index: 50;
+    }
+
+    .photo-frame:hover {
+      transform: rotate(0deg) scale(1.1);
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .memory-button {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(255,105,180,0.3);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 50px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.2);
+      z-index: 50;
+    }
+
+    .memory-button:hover {
+      background: rgba(255,105,180,0.5);
+      transform: scale(1.05);
+    }
+
+    .memory-box {
+      position: fixed;
+      bottom: 70px;
+      left: 20px;
+      width: 300px;
+      background: rgba(0,0,0,0.7);
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 0 20px rgba(255,105,180,0.3);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      transform: scale(0);
+      transform-origin: bottom left;
+      transition: transform 0.3s;
+      z-index: 49;
+    }
+
+    .memory-box.show {
+      transform: scale(1);
+    }
+
+    .memory-box h3 {
+      margin-top: 0;
+      color: var(--primary);
+      border-bottom: 1px solid rgba(255,105,180,0.3);
+      padding-bottom: 10px;
+    }
+
+    .memory-box p {
+      margin-bottom: 0;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .memory-box .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: var(--primary);
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .gallery-button {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      background: rgba(255,105,180,0.3);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 50px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.2);
+      z-index: 50;
+    }
+
+    .gallery-button:hover {
+      background: rgba(255,105,180,0.5);
+      transform: scale(1.05);
+    }
+
+    .gallery-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .gallery-container.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .gallery-header {
+      display: flex;
+      justify-content: space-between;
+      width: 90%;
+      max-width: 800px;
+      margin-bottom: 20px;
+    }
+
+    .gallery-title {
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+
+    .close-gallery {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .gallery-slider {
+      width: 90%;
+      max-width: 800px;
+      height: 70vh;
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(255,105,180,0.5);
+    }
+
+    .gallery-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
+    .gallery-slide.active {
+      opacity: 1;
+    }
+
+    .gallery-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .gallery-nav {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 10px;
+    }
+
+    .gallery-nav button {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .gallery-nav button:hover {
+      background: var(--primary);
+    }
+
+    .gallery-dots {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 10px;
+    }
+
+    .gallery-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .gallery-dot.active {
+      background: var(--primary);
+      transform: scale(1.2);
+    }
+
+    .secret-button {
+      position: fixed;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      background: rgba(255,105,180,0.3);
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.2);
+      z-index: 50;
+      opacity: 0.5;
+    }
+
+    .secret-button:hover {
+      opacity: 1;
+      background: rgba(255,105,180,0.5);
+    }
+
+    .secret-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.8);
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 80%;
+      text-align: center;
+      box-shadow: 0 0 30px var(--primary);
+      z-index: 1001;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s;
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--primary);
+    }
+
+    .secret-message.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .secret-message h2 {
+      color: var(--primary);
+      margin-top: 0;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+    }
+
+    .secret-message p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .close-secret {
+      background: var(--primary);
+      border: none;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 50px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .close-secret:hover {
+      background: var(--secondary);
+      transform: scale(1.05);
+    }
+
+    .date-time {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.1);
+      padding: 8px 15px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.2);
+      z-index: 100;
+    }
+
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: var(--primary);
+      opacity: 0;
+      z-index: 999;
+      animation: confetti-fall 5s linear forwards;
+    }
+
+    @keyframes confetti-fall {
+      0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+    .mood-selector {
+      position: fixed;
+      top: 70px;
+      left: 20px;
+      background: rgba(255,255,255,0.1);
+      padding: 10px;
+      border-radius: 20px;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.2);
+      z-index: 100;
+      transform: scale(0);
+      transform-origin: top left;
+      transition: transform 0.3s;
+    }
+
+    .mood-selector.show {
+      transform: scale(1);
+    }
+
+    .mood-title {
+      font-size: 0.8rem;
+      margin-bottom: 8px;
+      color: var(--accent);
+      text-align: center;
+    }
+
+    .mood-options {
+      display: flex;
+      gap: 8px;
+    }
+
+    .mood-option {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .mood-option:hover {
+      transform: scale(1.2);
+    }
+
+    .mood-button {
+      position: fixed;
+      top: 70px;
+      left: 20px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.2);
+      z-index: 50;
+    }
+
+    .mood-button:hover {
+      background: rgba(255,105,180,0.3);
+    }
+
+    .typing-indicator {
+      display: inline-block;
+      position: relative;
+      margin-left: 10px;
+    }
+
+    .typing-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--accent);
+      margin-right: 4px;
+      animation: typing-animation 1.4s infinite ease-in-out;
+    }
+
+    .typing-dot:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .typing-dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-dot:nth-child(3) {
+      animation-delay: 0.4s;
+      margin-right: 0;
+    }
+
+    @keyframes typing-animation {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-8px); }
+    }
+
+    .chat-bubble {
+      position: fixed;
+      bottom: 180px;
+      right: 20px;
+      background: rgba(255,105,180,0.3);
+      padding: 15px;
+      border-radius: 20px;
+      max-width: 250px;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.2);
+      transform: scale(0);
+      transform-origin: bottom right;
+      transition: transform 0.3s;
+      z-index: 50;
+    }
+
+    .chat-bubble.show {
+      transform: scale(1);
+    }
+
+    .chat-text {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .chat-button {
+      position: fixed;
+      bottom: 180px;
+      right: 20px;
+      background: rgba(255,105,180,0.3);
+      color: white;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.2);
+      z-index: 50;
+      font-size: 1.5rem;
+    }
+
+    .chat-button:hover {
+      background: rgba(255,105,180,0.5);
+      transform: scale(1.1);
+    }
+
+    .chat-close {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 0.8rem;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -186,34 +923,130 @@
 
 <canvas id="stars"></canvas>
 <canvas id="particles"></canvas>
+<canvas id="fireworks"></canvas>
+<div class="floating-hearts" id="floatingHearts"></div>
+
+<div class="music-controls">
+  <button class="music-btn" id="playBtn">▶️</button>
+  <button class="music-btn" id="nextBtn">⏭️</button>
+  <div class="song-title" id="songTitle">Sahiba - Ninja</div>
+</div>
+
+<div class="theme-toggle" id="themeToggle">🌓</div>
+
+<div class="date-time" id="dateTime"></div>
+
+<div class="mood-button" id="moodButton">😊</div>
+<div class="mood-selector" id="moodSelector">
+  <div class="mood-title">Set Mood</div>
+  <div class="mood-options">
+    <button class="mood-option" data-mood="happy">😊</button>
+    <button class="mood-option" data-mood="love">😍</button>
+    <button class="mood-option" data-mood="cool">😎</button>
+    <button class="mood-option" data-mood="playful">😜</button>
+  </div>
+</div>
 
 <div class="content">
   <div class="profile">
     <img src="https://files.catbox.moe/l7gvfz.jpg" alt="Mahin">
   </div>
-  <h1 id="name">Hey, I'm Mahin 👑</h1>
+  <h1 id="name">Hey, I'm Mahin 💖</h1>
   <div class="typewriter">A Student | Coder | Future Millionaire 💻🔥</div>
   <div class="info">
-    💻 Student & Coder <br>
-    🌏 Bangladesh <br>
-    🔥 Age: 14 <br>
-    ❤️ Loves Coding & Making $$$ <br>
-    📌 Click my FB below to connect!
+    💻 Student & Passionate Coder <br>
+    🌏 From Beautiful Bangladesh <br>
+    🎂 15 Years Young <br>
+    ❤️ Loves Coding, Music & Making Memories <br>
+    📌 Let's connect on Facebook below!Thanks for coming here
   </div>
   <div class="social">
-    <a href="https://www.facebook.com/RentaroAijo.7x" target="_blank">Facebook 💙</a>
+    <a href="https://www.facebook.com/RentaroAijo.7x" target="_blank">💙 Facebook</a>
+    <a href="#" id="Dibo nh babe">💚 WhatsApp</a>
+    <a href="#" id="https://www.instagram.com/dbz_mahin?igsh=MXdqbDBuanlqbHI3cA==">💜 Instagram</a>
+    <a href="#" id="Mahinstarou@gmail.com">📧 Email</a>
   </div>
   <div class="buttons">
-    <button onclick="alert('Downloading Contact...')">📥 Download vCard</button>
-    <button onclick="toggleMusic()">🎵 Music</button>
+    <button onclick="downloadVCard()">📥 Download vCard</button>
+    <button onclick="showLoveMessage()">💖 Send Love</button>
+    <button onclick="startFireworks()">🎆 Celebration</button>
+    <button onclick="showGallery()">📸 Photo Gallery</button>
   </div>
-  <div class="counter">👀 Visitors: <span id="visits">0</span></div>
+  <div class="counter">👀 Visitors: <span id="visits">1,337</span> | 💖 Likes: <span id="likes">528</span> <span class="typing-indicator" id="typingIndicator">
+    <span class="typing-dot"></span>
+    <span class="typing-dot"></span>
+    <span class="typing-dot"></span>
+  </span></div>
 </div>
 
-<footer>© 2025 Mahin | Built with 💖 & Code</footer>
+<div class="love-message" id="loveMessage">You're amazing! Keep shining bright! ✨</div>
 
-<audio id="bgmusic" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/10/19/audio_4a9b5f7e1b.mp3?filename=chill-ambient-ambient-music-12441.mp3" type="audio/mpeg">
+<div class="photo-frame" id="photoFrame">
+  <img src="https://files.catbox.moe/l7gvfz.jpg" alt="Special Memory">
+</div>
+
+<button class="memory-button" id="memoryButton">
+  <span>💭 Memories</span>
+</button>
+
+<div class="memory-box" id="memoryBox">
+  <button class="close-btn" id="closeMemoryBox">✕</button>
+  <h3>Special Memories</h3>
+  <p>Every moment is a new opportunity to create beautiful memories. This website is just the beginning of our journey together. Stay tuned for more updates and features!</p>
+</div>
+
+<button class="gallery-button" id="galleryButton">
+  <span>📸 Gallery</span>
+</button>
+
+<div class="gallery-container" id="galleryContainer">
+  <div class="gallery-header">
+    <div class="gallery-title">Mahin's Gallery</div>
+    <button class="close-gallery" id="closeGallery">✕</button>
+  </div>
+  <div class="gallery-slider" id="gallerySlider">
+    <div class="gallery-slide active">
+      <img src="https://files.catbox.moe/l7gvfz.jpg" alt="Mahin 1">
+    </div>
+    <div class="gallery-slide">
+      <img src="https://placekitten.com/800/600" alt="Mahin 2">
+    </div>
+    <div class="gallery-slide">
+      <img src="https://placekitten.com/801/600" alt="Mahin 3">
+    </div>
+  </div>
+  <div class="gallery-nav">
+    <button id="prevSlide">◀</button>
+    <button id="nextSlide">▶</button>
+  </div>
+  <div class="gallery-dots">
+    <div class="gallery-dot active" data-index="0"></div>
+    <div class="gallery-dot" data-index="1"></div>
+    <div class="gallery-dot" data-index="2"></div>
+  </div>
+</div>
+
+<button class="secret-button" id="secretButton">✨</button>
+
+<div class="secret-message" id="secretMessage">
+  <h2>For Someone Special</h2>
+  <p>If you're seeing this, know that you're an amazing person who brings light to this world. Never forget how incredible you are!</p>
+  <button class="close-secret" id="closeSecret">💖 Got it!</button>
+</div>
+
+<button class="chat-button" id="chatButton">💬</button>
+
+<div class="chat-bubble" id="chatBubble">
+  <button class="chat-close" id="chatClose">✕</button>
+  <p class="chat-text">Hi there! How can I brighten your day today? 😊</p>
+</div>
+
+<footer>© 2025 Mahin's Ultimate World | Built with 💖 & Magic</footer>
+
+<audio id="bgmusic">
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  <!-- Backup audio source -->
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -226,25 +1059,29 @@
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     stars = [];
-    for (let i = 0; i < 150; i++) {
+    for (let i = 0; i < 200; i++) {
       stars.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        radius: Math.random() * 2,
-        speed: Math.random() * 0.5 + 0.2
+        radius: Math.random() * 1.5 + 0.5,
+        speed: Math.random() * 0.5 + 0.2,
+        alpha: Math.random() * 0.8 + 0.2
       });
     }
   }
 
   function animateStars() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'white';
     stars.forEach(star => {
       ctx.beginPath();
       ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
       ctx.fill();
       star.y += star.speed;
-      if (star.y > canvas.height) star.y = 0;
+      if (star.y > canvas.height) {
+        star.y = 0;
+        star.x = Math.random() * canvas.width;
+      }
     });
     requestAnimationFrame(animateStars);
   }
@@ -255,59 +1092,532 @@
 
   // 💖 Heart Rain
   document.getElementById('name').addEventListener('click', () => {
-    for (let i = 0; i < 10; i++) {
-      let heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.innerText = '❤️';
-      heart.style.left = Math.random() * window.innerWidth + 'px';
-      heart.style.top = '-20px';
-      heart.style.fontSize = Math.random() * 20 + 15 + 'px';
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 3000);
+    for (let i = 0; i < 15; i++) {
+      createHeart();
     }
   });
 
-  // Fake Visitors
-  document.getElementById('visits').innerText = Math.floor(Math.random() * 1000) + 50;
-
-  // 🎵 Music Toggle
-  const music = document.getElementById('bgmusic');
-  function toggleMusic() {
-    if (music.paused) music.play(); else music.pause();
+  function createHeart() {
+    let heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerHTML = ['❤️', '💖', '💗', '💓', '💞', '💕'][Math.floor(Math.random() * 6)];
+    heart.style.left = Math.random() * window.innerWidth + 'px';
+    heart.style.top = '-20px';
+    heart.style.fontSize = Math.random() * 25 + 15 + 'px';
+    heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
   }
+
+  // Floating Hearts Background
+  function createFloatingHearts() {
+    const container = document.getElementById('floatingHearts');
+    for (let i = 0; i < 15; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'floating-heart';
+      heart.innerHTML = ['❤️', '💖', '💗', '💓', '💞', '💕'][Math.floor(Math.random() * 6)];
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = Math.random() * 15 + 10 + 'px';
+      heart.style.animationDuration = Math.random() * 10 + 10 + 's';
+      heart.style.animationDelay = Math.random() * 5 + 's';
+      container.appendChild(heart);
+    }
+  }
+
+  createFloatingHearts();
+
+  // 🎵 Music Player
+  const music = document.getElementById('bgmusic');
+  const playBtn = document.getElementById('playBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const songTitle = document.getElementById('songTitle');
+  
+  const songs = [
+    { title: "Sahiba - Ninja", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+    { title: "Romantic Melody", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+    { title: "Love Theme", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" }
+  ];
+  
+  let currentSong = 0;
+  
+  // Try to autoplay (may not work due to browser policies)
+  music.volume = 0.5;
+  music.src = songs[currentSong].src;
+  songTitle.textContent = songs[currentSong].title;
+  
+  // Play/Pause toggle
+  playBtn.addEventListener('click', () => {
+    if (music.paused) {
+      music.play().catch(e => console.log("Autoplay prevented:", e));
+      playBtn.textContent = '⏸️';
+    } else {
+      music.pause();
+      playBtn.textContent = '▶️';
+    }
+  });
+  
+  // Next song
+  nextBtn.addEventListener('click', () => {
+    currentSong = (currentSong + 1) % songs.length;
+    music.src = songs[currentSong].src;
+    songTitle.textContent = songs[currentSong].title;
+    music.play().catch(e => console.log("Autoplay prevented:", e));
+    playBtn.textContent = '⏸️';
+  });
+  
+  // When song ends, play next
+  music.addEventListener('ended', () => {
+    currentSong = (currentSong + 1) % songs.length;
+    music.src = songs[currentSong].src;
+    songTitle.textContent = songs[currentSong].title;
+    music.play().catch(e => console.log("Autoplay prevented:", e));
+  });
+
+  // Show song title when music controls are hovered
+  const musicControls = document.querySelector('.music-controls');
+  musicControls.addEventListener('mouseenter', () => {
+    songTitle.style.opacity = '1';
+    songTitle.style.maxWidth = '200px';
+  });
+  
+  musicControls.addEventListener('mouseleave', () => {
+    songTitle.style.opacity = '0';
+    songTitle.style.maxWidth = '0';
+  });
+
+  // 💌 Love Message
+  function showLoveMessage() {
+    const messages = [
+      "You're amazing! Keep shining bright! ✨",
+      "Sending you love and positive vibes! 💖",
+      "The world is better with you in it! 🌎",
+      "Your smile makes my day brighter! 😊",
+      "You're capable of amazing things! 🚀",
+      "Stay awesome, stay you! 💫",
+      "Your kindness changes everything! 🌈",
+      "You make ordinary moments magical! ✨"
+    ];
+    const loveMessage = document.getElementById('loveMessage');
+    loveMessage.textContent = messages[Math.floor(Math.random() * messages.length)];
+    loveMessage.classList.add('show');
+    
+    // Create hearts around the message
+    for (let i = 0; i < 8; i++) {
+      setTimeout(() => {
+        createHeart();
+      }, i * 200);
+    }
+    
+    setTimeout(() => {
+      loveMessage.classList.remove('show');
+    }, 3000);
+  }
+
+  // 📥 vCard Download
+  function downloadVCard() {
+    // In a real implementation, this would download a vCard file
+    alert('vCard download started! (This is a demo)');
+    // Simulate download effect
+    const btn = document.querySelector('.buttons button:first-child');
+    btn.textContent = '✅ Downloaded!';
+    setTimeout(() => {
+      btn.textContent = '📥 Download vCard';
+    }, 2000);
+  }
+
+  // 🎆 Fireworks
+  const fireworksCanvas = document.getElementById('fireworks');
+  const fctx = fireworksCanvas.getContext('2d');
+  fireworksCanvas.width = window.innerWidth;
+  fireworksCanvas.height = window.innerHeight;
+  
+  let fireworks = [];
+  let particles = [];
+  
+  class Firework {
+    constructor() {
+      this.x = Math.random() * fireworksCanvas.width;
+      this.y = fireworksCanvas.height;
+      this.targetY = Math.random() * fireworksCanvas.height * 0.6;
+      this.speed = Math.random() * 3 + 2;
+      this.angle = Math.PI / 2 + (Math.random() - 0.5) * 0.2;
+      this.color = `hsl(${Math.random() * 60 + 300}, 100%, 70%)`;
+      this.trail = [];
+    }
+    
+    update() {
+      this.y -= this.speed * Math.sin(this.angle);
+      this.x += this.speed * Math.cos(this.angle);
+      
+      this.trail.push({x: this.x, y: this.y});
+      if (this.trail.length > 10) this.trail.shift();
+      
+      if (this.y <= this.targetY) {
+        this.explode();
+        return false;
+      }
+      return true;
+    }
+    
+    draw() {
+      fctx.beginPath();
+      fctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+      fctx.fillStyle = this.color;
+      fctx.fill();
+      
+      // Draw trail
+      for (let i = 0; i < this.trail.length; i++) {
+        const point = this.trail[i];
+        fctx.beginPath();
+        fctx.arc(point.x, point.y, 2 * (i / this.trail.length), 0, Math.PI * 2);
+        fctx.fillStyle = `${this.color.replace(')', `, ${i / this.trail.length})`).replace('hsl', 'hsla')`;
+        fctx.fill();
+      }
+    }
+    
+    explode() {
+      for (let i = 0; i < 100; i++) {
+        particles.push(new Particle(this.x, this.y, this.color));
+      }
+    }
+  }
+  
+  class Particle {
+    constructor(x, y, color) {
+      this.x = x;
+      this.y = y;
+      this.color = color;
+      this.angle = Math.random() * Math.PI * 2;
+      this.speed = Math.random() * 5 + 2;
+      this.friction = 0.95;
+      this.gravity = 0.2;
+      this.size = Math.random() * 3 + 1;
+      this.alpha = 1;
+      this.decay = Math.random() * 0.02 + 0.01;
+    }
+    
+    update() {
+      this.speed *= this.friction;
+      this.x += Math.cos(this.angle) * this.speed;
+      this.y += Math.sin(this.angle) * this.speed + this.gravity;
+      this.alpha -= this.decay;
+      return this.alpha > 0;
+    }
+    
+    draw() {
+      fctx.beginPath();
+      fctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      fctx.fillStyle = `${this.color.replace(')', `, ${this.alpha})`).replace('hsl', 'hsla')`;
+      fctx.fill();
+    }
+  }
+  
+  function animateFireworks() {
+    requestAnimationFrame(animateFireworks);
+    
+    fctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+    fctx.fillRect(0, 0, fireworksCanvas.width, fireworksCanvas.height);
+    
+    // Randomly launch fireworks
+    if (Math.random() < 0.03) {
+      fireworks.push(new Firework());
+    }
+    
+    // Update and draw fireworks
+    for (let i = fireworks.length - 1; i >= 0; i--) {
+      if (fireworks[i].update()) {
+        fireworks[i].draw();
+      } else {
+        fireworks.splice(i, 1);
+      }
+    }
+    
+    // Update and draw particles
+    for (let i = particles.length - 1; i >= 0; i--) {
+      if (particles[i].update()) {
+        particles[i].draw();
+      } else {
+        particles.splice(i, 1);
+      }
+    }
+  }
+  
+  function startFireworks() {
+    // Launch several fireworks at once
+    for (let i = 0; i < 10; i++) {
+      setTimeout(() => {
+        fireworks.push(new Firework());
+      }, i * 200);
+    }
+    
+    // Start animation if not already running
+    if (fireworks.length === 0 && particles.length === 0) {
+      animateFireworks();
+    }
+  }
+  
+  // Initialize fireworks
+  window.addEventListener('resize', () => {
+    fireworksCanvas.width = window.innerWidth;
+    fireworksCanvas.height = window.innerHeight;
+  });
+
+  // 🌓 Theme Toggle
+  const themeToggle = document.getElementById('themeToggle');
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    themeToggle.textContent = document.body.classList.contains('dark-mode') ? '🌞' : '🌓';
+  });
+
+  // 💭 Memory Box
+  const memoryButton = document.getElementById('memoryButton');
+  const memoryBox = document.getElementById('memoryBox');
+  const closeMemoryBox = document.getElementById('closeMemoryBox');
+  
+  memoryButton.addEventListener('click', () => {
+    memoryBox.classList.toggle('show');
+  });
+  
+  closeMemoryBox.addEventListener('click', () => {
+    memoryBox.classList.remove('show');
+  });
+
+  // 📸 Gallery
+  const galleryButton = document.getElementById('galleryButton');
+  const galleryContainer = document.getElementById('galleryContainer');
+  const closeGallery = document.getElementById('closeGallery');
+  const gallerySlider = document.getElementById('gallerySlider');
+  const prevSlide = document.getElementById('prevSlide');
+  const nextSlide = document.getElementById('nextSlide');
+  const galleryDots = document.querySelectorAll('.gallery-dot');
+  
+  let currentSlide = 0;
+  
+  function showGallery() {
+    galleryContainer.classList.add('show');
+    updateGallery();
+  }
+  
+  function updateGallery() {
+    const slides = document.querySelectorAll('.gallery-slide');
+    slides.forEach((slide, index) => {
+      slide.classList.toggle('active', index === currentSlide);
+    });
+    
+    galleryDots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === currentSlide);
+    });
+  }
+  
+  galleryButton.addEventListener('click', showGallery);
+  closeGallery.addEventListener('click', () => {
+    galleryContainer.classList.remove('show');
+  });
+  
+  prevSlide.addEventListener('click', () => {
+    currentSlide = (currentSlide - 1 + gallerySlider.children.length) % gallerySlider.children.length;
+    updateGallery();
+  });
+  
+  nextSlide.addEventListener('click', () => {
+    currentSlide = (currentSlide + 1) % gallerySlider.children.length;
+    updateGallery();
+  });
+  
+  galleryDots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      currentSlide = parseInt(dot.getAttribute('data-index'));
+      updateGallery();
+    });
+  });
+
+  // ✨ Secret Button
+  const secretButton = document.getElementById('secretButton');
+  const secretMessage = document.getElementById('secretMessage');
+  const closeSecret = document.getElementById('closeSecret');
+  
+  secretButton.addEventListener('click', () => {
+    secretMessage.classList.add('show');
+  });
+  
+  closeSecret.addEventListener('click', () => {
+    secretMessage.classList.remove('show');
+  });
+
+  // 📅 Date & Time
+  const dateTime = document.getElementById('dateTime');
+  
+  function updateDateTime() {
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    dateTime.textContent = now.toLocaleDateString('en-US', options);
+  }
+  
+  updateDateTime();
+  setInterval(updateDateTime, 60000); // Update every minute
+
+  // 😊 Mood Selector
+  const moodButton = document.getElementById('moodButton');
+  const moodSelector = document.getElementById('moodSelector');
+  const moodOptions = document.querySelectorAll('.mood-option');
+  
+  moodButton.addEventListener('click', () => {
+    moodSelector.classList.toggle('show');
+  });
+  
+  moodOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      moodButton.textContent = option.textContent;
+      moodSelector.classList.remove('show');
+      
+      // Change color scheme based on mood
+      const mood = option.getAttribute('data-mood');
+      document.body.className = ''; // Reset classes
+      
+      if (mood === 'love') {
+        document.body.style.setProperty('--primary', '#ff69b4');
+        document.body.style.setProperty('--secondary', '#ff1493');
+        document.body.style.setProperty('--accent', '#ffb6c1');
+      } else if (mood === 'happy') {
+        document.body.style.setProperty('--primary', '#ffcc00');
+        document.body.style.setProperty('--secondary', '#ff9500');
+        document.body.style.setProperty('--accent', '#fff2cc');
+      } else if (mood === 'cool') {
+        document.body.style.setProperty('--primary', '#00bfff');
+        document.body.style.setProperty('--secondary', '#0066ff');
+        document.body.style.setProperty('--accent', '#b3e0ff');
+      } else if (mood === 'playful') {
+        document.body.style.setProperty('--primary', '#00cc66');
+        document.body.style.setProperty('--secondary', '#00b359');
+        document.body.style.setProperty('--accent', '#b3ffcc');
+      }
+    });
+  });
+
+  // 💬 Chat Bubble
+  const chatButton = document.getElementById('chatButton');
+  const chatBubble = document.getElementById('chatBubble');
+  const chatClose = document.getElementById('chatClose');
+  
+  chatButton.addEventListener('click', () => {
+    chatBubble.classList.toggle('show');
+  });
+  
+  chatClose.addEventListener('click', () => {
+    chatBubble.classList.remove('show');
+  });
+
+  // Update visitor counter with a more realistic animation
+  const visitsEl = document.getElementById('visits');
+  const likesEl = document.getElementById('likes');
+  const typingIndicator = document.getElementById('typingIndicator');
+  
+  function animateCounter(element, target) {
+    let current = 0;
+    const increment = target / 50;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+        typingIndicator.style.display = 'none';
+      }
+      element.textContent = Math.floor(current).toLocaleString();
+    }, 20);
+  }
+  
+  // Start with some base numbers and add random increments
+  setTimeout(() => {
+    const baseVisits = 1337;
+    const baseLikes = 528;
+    const randomVisits = Math.floor(Math.random() * 100);
+    const randomLikes = Math.floor(Math.random() * 50);
+    
+    typingIndicator.style.display = 'inline-block';
+    animateCounter(visitsEl, baseVisits + randomVisits);
+    animateCounter(likesEl, baseLikes + randomLikes);
+  }, 1000);
+
+  // Update numbers periodically
+  setInterval(() => {
+    const currentVisits = parseInt(visitsEl.textContent.replace(/,/g, ''));
+    const currentLikes = parseInt(likesEl.textContent.replace(/,/g, ''));
+    
+    animateCounter(visitsEl, currentVisits + Math.floor(Math.random() * 3));
+    animateCounter(likesEl, currentLikes + Math.floor(Math.random() * 2));
+  }, 30000);
 
   // 🌈 Mouse Glow Trail
   const particleCanvas = document.getElementById('particles');
   const pctx = particleCanvas.getContext('2d');
   particleCanvas.width = window.innerWidth;
   particleCanvas.height = window.innerHeight;
-  let particles = [];
+  let mouseParticles = [];
 
   document.addEventListener('mousemove', e => {
-    particles.push({x: e.clientX, y: e.clientY, alpha: 1});
+    for (let i = 0; i < 3; i++) {
+      mouseParticles.push({
+        x: e.clientX + (Math.random() * 20 - 10),
+        y: e.clientY + (Math.random() * 20 - 10),
+        size: Math.random() * 5 + 2,
+        color: `hsl(${Math.random() * 60 + 300}, 100%, 70%)`,
+        alpha: 1,
+        speedX: Math.random() * 2 - 1,
+        speedY: Math.random() * 2 - 1
+      });
+    }
   });
 
   function animateParticles() {
-    pctx.clearRect(0,0,particleCanvas.width,particleCanvas.height);
-    particles.forEach((p,i)=>{
-      pctx.fillStyle = `rgba(0,255,255,${p.alpha})`;
+    pctx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+    mouseParticles.forEach((p, i) => {
+      pctx.fillStyle = `${p.color.replace(')', `, ${p.alpha})`).replace('hsl', 'hsla')`;
       pctx.beginPath();
-      pctx.arc(p.x,p.y,5,0,Math.PI*2);
+      pctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
       pctx.fill();
+      
+      p.x += p.speedX;
+      p.y += p.speedY;
       p.alpha -= 0.02;
-      if(p.alpha<=0) particles.splice(i,1);
+      p.size *= 0.99;
+      
+      if (p.alpha <= 0 || p.size <= 0.5) {
+        mouseParticles.splice(i, 1);
+      }
     });
     requestAnimationFrame(animateParticles);
   }
   animateParticles();
 
-  // 🌗 Day/Night background
-  setInterval(()=>{
-    document.body.style.background = 
-      document.body.style.background === "black" 
-      ? "linear-gradient(to bottom, #001f3f, #000)" 
-      : "black";
-  },10000);
+  // Photo frame rotation
+  const photoFrame = document.getElementById('photoFrame');
+  setInterval(() => {
+    photoFrame.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
+  }, 3000);
+
+  // Social media links
+  document.getElementById('whatsappLink').addEventListener('click', (e) => {
+    e.preventDefault();
+    alert('WhatsApp: Coming soon!');
+  });
+
+  document.getElementById('instaLink').addEventListener('click', (e) => {
+    e.preventDefault();
+    alert('Instagram: Coming soon!');
+  });
+
+  document.getElementById('emailLink').addEventListener('click', (e) => {
+    e.preventDefault();
+    alert('Email: Mahinstarou@gmail.com');
+  });
+
+  // Initial animations
+  setTimeout(() => {
+    showLoveMessage();
+  }, 3000);
+
+  // Start fireworks animation (but don't show any yet)
+  animateFireworks();
 </script>
 
 </body>
